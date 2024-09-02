@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} arr
+ * @param {Function} fn
+ * @return {number[]}
+ */
+var filter = function(arr, fn) {
+    // Create an empty array to hold the filtered results
+    let filteredArr = [];
+    
+    // Iterate over the input array with an index
+    for (let i = 0; i < arr.length; i++) {
+        // Check if the element should be included using the fn function
+        if (fn(arr[i], i)) {
+            // Add the element to the filteredArr if fn returns a truthy value
+            filteredArr.push(arr[i]);
+        }
+    }
+    
+    // Return the filtered array
+    return filteredArr;
+};
