@@ -1,24 +1,18 @@
 /**
- * @param {number[]} nums
- * @param {Function} fn
- * @param {number} init
- * @return {number}
+ * @param {Function[]} functions
+ * @return {Function}
  */
-var reduce = function(nums, fn, init) {
-    // Handle the case for an empty array
-    if (nums.length === 0) {
-        return init;
+var compose = function(functions) {
+    // If functions is empty, return the identity function
+    if (functions.length === 0) {
+        return function(x) {
+            return x;
+        };
     }
     
-    // Initialize `val` with the initial value
-    let val = init;
-    
-    // Iterate through the `nums` array
-    for (let i = 0; i < nums.length; i++) {
-        // Update `val` using the reducer function `fn`
-        val = fn(val, nums[i]);
-    }
-    
-    // Return the final result
-    return val;
+    // Use reduceRight to apply functions from right to left
+    return function(x) {
+        return functions.reduceRight((acc, fn) => fn(acc), x);
+    };
 };
+
